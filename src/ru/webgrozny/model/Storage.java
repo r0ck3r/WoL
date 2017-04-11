@@ -1,6 +1,8 @@
 package ru.webgrozny.model;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Storage implements Serializable {
     public Host[] hosts;
@@ -10,6 +12,12 @@ public class Storage implements Serializable {
             hosts = new Host[2];
             hosts[0] = new Host("[No selection]", new byte[0]);
         }
+    }
+    
+    public String getHomedir(){
+        String homedir = System.getProperty("user.home");
+        boolean writable = Files.isWritable(Paths.get(homedir));
+        return writable ? homedir : null;
     }
     
     public void addHost(Host host){
@@ -46,23 +54,36 @@ public class Storage implements Serializable {
     }
     
     private void save(){
-        try(FileOutputStream fs = new FileOutputStream("hosts.dat")){
-            ObjectOutputStream os = new ObjectOutputStream(fs);
-            os.writeObject(this);
-        }catch (IOException e){
-            System.out.println("Can't save options");
+        String hd = getHomedir();
+        if(hd != null) {
+            try (FileOutputStream fs = new FileOutputStream(hd + "/.config/wolhosts.dat")) {
+                ObjectOutputStream os = new ObjectOutputStream(fs);
+                os.writeObject(this);
+
+            } catch (FileNotFoundException e){
+                try {
+                    Files.createDirectories(Paths.get(hd + "/.config/"));
+                    save();
+                } catch (IOException e1) {
+                }
+            } catch (IOException e) {
+                System.out.println("Can't save options");
+            }
         }
     }
     
     private boolean load(){
+        String hd = getHomedir();
         boolean ret = false;
-        try(FileInputStream is = new FileInputStream("hosts.dat")){
-            ObjectInputStream os = new ObjectInputStream(is);
-            Storage storage = (Storage) os.readObject();
-            this.hosts = storage.hosts;
-            ret = true;
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Can't load options");
+        if(hd != null) {
+            try (FileInputStream is = new FileInputStream(hd + "/.config/wolhosts.dat")) {
+                ObjectInputStream os = new ObjectInputStream(is);
+                Storage storage = (Storage) os.readObject();
+                this.hosts = storage.hosts;
+                ret = true;
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Can't load options");
+            }
         }
         return ret;
     }

@@ -27,7 +27,7 @@ public class Controller {
     int selectedIndex = 0;
     ListSelectionListener listSelectionListener;
     
-    Controller(){
+    public Controller(){
         SwingUtilities.invokeLater(
                 () -> {
                     MainWindow.setUIFont(new FontUIResource("tahoma",Font.PLAIN, 13));
@@ -167,9 +167,5 @@ public class Controller {
                 } catch (InterruptedException e) { }
             }).start();
         }
-    }
-    
-    public static void main(String[] args){
-        new Controller();
     }
 }

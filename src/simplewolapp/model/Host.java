@@ -1,4 +1,4 @@
-package ru.webgrozny.model;
+package simplewolapp.model;
 
 import java.io.Serializable;
 import java.util.StringTokenizer;

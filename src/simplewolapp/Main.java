@@ -1,6 +1,6 @@
-package ru.webgrozny;
+package simplewolapp;
 
-import ru.webgrozny.controller.Controller;
+import simplewolapp.controller.Controller;
 
 public class Main {
     public static void main(String[] args){

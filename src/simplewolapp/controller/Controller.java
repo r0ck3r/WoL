@@ -1,10 +1,10 @@
-package ru.webgrozny.controller;
+package simplewolapp.controller;
 
-import ru.webgrozny.model.Host;
-import ru.webgrozny.model.MacException;
-import ru.webgrozny.model.Storage;
-import ru.webgrozny.model.WakeOnLan;
-import ru.webgrozny.view.MainWindow;
+import simplewolapp.model.Host;
+import simplewolapp.model.MacException;
+import simplewolapp.model.Storage;
+import simplewolapp.model.WakeOnLan;
+import simplewolapp.view.MainWindow;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;

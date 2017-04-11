@@ -1,4 +1,4 @@
-package ru.webgrozny.view;
+package simplewolapp.view;
 
 import javax.swing.*;
 import java.awt.*;

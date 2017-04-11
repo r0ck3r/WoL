@@ -1,8 +1,8 @@
-package ru.webgrozny.controller;
+package simplewolapp.controller;
 
-import ru.webgrozny.model.Host;
-import ru.webgrozny.model.MacException;
-import ru.webgrozny.view.AddWindow;
+import simplewolapp.model.Host;
+import simplewolapp.model.MacException;
+import simplewolapp.view.AddWindow;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
-package ru.webgrozny.view;
+package simplewolapp.view;
 
-import ru.webgrozny.model.Host;
+import simplewolapp.model.Host;
 
 import javax.swing.*;
 import java.awt.*;

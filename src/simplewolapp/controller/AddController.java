@@ -8,9 +8,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by r0ck3r on 10.04.17.
- */
 public class AddController {
     AddWindow addWindow;
     Controller mainController;

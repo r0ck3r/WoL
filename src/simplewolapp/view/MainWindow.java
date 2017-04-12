@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow {
-    public GridBagLayout layout = new GridBagLayout();
+    private GridBagLayout layout = new GridBagLayout();
     public JFrame frame;
     public JList<Host> hostList = new JList<>();
     public JButton wakeButton = new JButton("Wake");
@@ -23,115 +23,151 @@ public class MainWindow {
         frame.setSize(470, 300);
         frame.setResizable(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        frame.setLayout(layout);
-        name.setEnabled(false);
-        mac.setEnabled(false);
-        save.setEnabled(false);
-        wakeButton.setEnabled(false);
+        buildUI();
+        frame.setVisible(true);
+    }
+    
+    public void buildUI(){
+        GridBagConstraints constraints;
         
-        JLabel listLabel = new JLabel("List");
-        JLabel nameLabel = new JLabel("Name:");
-        JLabel macLabel = new JLabel("MAC: ");
+        frame.setLayout(layout);
+
+        JPanel leftPane = new JPanel();
+        leftPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "List of devices"));
+        GridBagLayout leftLayout = new GridBagLayout();
+        leftPane.setLayout(leftLayout);
+               
+        JPanel rightPane = new JPanel();
+        rightPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Settings"));
+        GridBagLayout rightLayout = new GridBagLayout();
+        rightPane.setLayout(rightLayout);
 
         listPane = new JScrollPane(hostList);
-        listPane.setPreferredSize(new Dimension(200, 200));
+        constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.gridwidth = 3;
+        constraints.weighty = 0.8;
+        constraints.fill = GridBagConstraints.BOTH;
+        leftLayout.setConstraints(listPane, constraints);
+        leftPane.add(listPane);
         
-        GridBagConstraints constraints;
+        constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        constraints.weightx = 0.8;
+        JPanel j = new JPanel();
+        leftLayout.setConstraints(j, constraints);
+        leftPane.add(j);
+        
+        constraints = new GridBagConstraints();
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.anchor = GridBagConstraints.EAST;
+        constraints.weightx = 0.1;
+        leftLayout.setConstraints(addButton, constraints);
+        leftPane.add(addButton);
+        
+        constraints = new GridBagConstraints();
+        constraints.gridx = 3;
+        constraints.gridy = 1;
+        constraints.weightx = 0.1;
+        constraints.anchor = GridBagConstraints.EAST;
+        leftLayout.setConstraints(removeButton, constraints);
+        leftPane.add(removeButton);
         
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
-        layout.setConstraints(listLabel, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.gridy = 1;
-        constraints.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(nameLabel, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridx = 3;
-        constraints.gridy = 1;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        layout.setConstraints(name, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.gridy = 2;
-        constraints.anchor = GridBagConstraints.WEST;
-        layout.setConstraints(macLabel, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridx = 3;
-        constraints.gridy = 2;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        layout.setConstraints(mac, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        layout.setConstraints(save, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridy = 4;
-        constraints.gridx = 2;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.NORTHWEST;
-        layout.setConstraints(intPanel, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridy = 1;
-        constraints.gridx = 0;
-        constraints.gridwidth = 2;
-        constraints.gridheight = 4;
-        layout.setConstraints(listPane, constraints);
-
-        constraints = new GridBagConstraints();
-        constraints.gridy = 5;
-        constraints.gridx = 0;
-        constraints.weightx = 0.1;
-        layout.setConstraints(addButton, constraints);
+        constraints.weightx = 0.3;
+        constraints.weighty = 1;
+        constraints.fill = GridBagConstraints.BOTH;
+        layout.setConstraints(leftPane, constraints);
         
         constraints = new GridBagConstraints();
-        constraints.gridy = 5;
         constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.weightx = 0.7;
+        constraints.weighty = 1;
+        constraints.weighty = 1;
+        constraints.fill = GridBagConstraints.BOTH;
+        layout.setConstraints(rightPane, constraints);
+        
+        JPanel rightSubPanel = new JPanel();
+        GridBagLayout rightSubLayout = new GridBagLayout();
+        rightSubPanel.setLayout(rightSubLayout);
+        
+        JLabel nameLabel = new JLabel("Name: ");
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
         constraints.weightx = 0.1;
-        layout.setConstraints(removeButton, constraints);
+        rightSubLayout.setConstraints(nameLabel, constraints);
+        rightSubPanel.add(nameLabel);
         
         constraints = new GridBagConstraints();
-        constraints.gridy = 5;
-        constraints.gridx = 2;
-        constraints.gridwidth = 2;
-        constraints.weightx = 0.8;
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.weightx = 0.9;
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        layout.setConstraints(wakeButton, constraints);
+        rightSubLayout.setConstraints(name, constraints);
+        name.setEnabled(false);
+        rightSubPanel.add(name);
+        
+        JLabel macLabel = new JLabel("MAC: ");
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        rightSubLayout.setConstraints(macLabel, constraints);
+        rightSubPanel.add(macLabel);
         
         constraints = new GridBagConstraints();
-        constraints.gridx = 2;
-        constraints.gridy = 4;
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        rightSubLayout.setConstraints(mac, constraints);
+        mac.setEnabled(false);
+        rightSubPanel.add(mac);
+        
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 2;
         constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.SOUTHWEST;
-        layout.setConstraints(infoLabel, constraints);
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        rightSubLayout.setConstraints(save, constraints);
+        save.setEnabled(false);
+        rightSubPanel.add(save);
         
-        frame.add(listLabel);
-        frame.add(nameLabel);
-        frame.add(name);
-        frame.add(macLabel);
-        frame.add(mac);
-        frame.add(save);
-        frame.add(intPanel);
-        frame.add(listPane);
-        frame.add(addButton);
-        frame.add(removeButton);
-        frame.add(wakeButton);
-        frame.add(infoLabel);
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 1;
+        constraints.weighty = 0.1;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.anchor = GridBagConstraints.NORTH;
+        rightLayout.setConstraints(rightSubPanel, constraints);
+        rightPane.add(rightSubPanel);
         
-        frame.setVisible(true);
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.anchor = GridBagConstraints.SOUTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        rightLayout.setConstraints(intPanel, constraints);
+        rightPane.add(intPanel);
+        
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        rightLayout.setConstraints(wakeButton, constraints);
+        wakeButton.setEnabled(false);
+        rightPane.add(wakeButton);
+        
+        frame.add(leftPane);
+        frame.add(rightPane);
     }
+    
     public static void setUIFont(javax.swing.plaf.FontUIResource f)
     {
         java.util.Enumeration keys = UIManager.getDefaults().keys();

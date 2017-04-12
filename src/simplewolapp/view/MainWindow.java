@@ -17,7 +17,7 @@ public class MainWindow {
     public JScrollPane listPane;
     public JButton removeButton = new JButton("Remove");
     public JPanel intPanel = new JPanel();
-    public JLabel infoLabel = new JLabel("");
+    public JLabel infoLabel = new JLabel(" ");
     public MainWindow(){
         frame = new JFrame("Simple Wol Application");
         frame.setSize(470, 300);
@@ -159,6 +159,12 @@ public class MainWindow {
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 4;
+        rightLayout.setConstraints(infoLabel, constraints);
+        rightPane.add(infoLabel);
+        
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 5;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         rightLayout.setConstraints(wakeButton, constraints);
         wakeButton.setEnabled(false);

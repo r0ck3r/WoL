@@ -163,7 +163,7 @@ public class Controller {
             new Thread(() -> {
                 try {
                     Thread.sleep(5000);
-                    mainWindow.infoLabel.setText("");
+                    mainWindow.infoLabel.setText(" ");
                 } catch (InterruptedException e) { }
             }).start();
         }

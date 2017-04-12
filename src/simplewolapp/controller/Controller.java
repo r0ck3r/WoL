@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Controller {
     MainWindow mainWindow;
@@ -30,7 +31,7 @@ public class Controller {
     public Controller(){
         SwingUtilities.invokeLater(
                 () -> {
-                    MainWindow.setUIFont(new FontUIResource("tahoma",Font.PLAIN, 13));
+                    setUIFont(new FontUIResource("tahoma",Font.PLAIN, 13));
                     mainWindow = new MainWindow();
                     reloadStorageHosts();
                     addInterfaces();
@@ -160,6 +161,39 @@ public class Controller {
                     mainWindow.infoLabel.setText(" ");
                 } catch (InterruptedException e) { }
             }).start();
+        }
+    }
+    
+    public static double scaleFactor;
+    
+    public static int getScalingFactor(int e){
+        return (int) ((double) e * scaleFactor);
+    }
+    
+    public static void setUIFont(javax.swing.plaf.FontUIResource f){
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while(keys.hasMoreElements()){
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if(value instanceof javax.swing.plaf.FontUIResource) UIManager.put(key, f);
+        }
+        int pixelPerInch=java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
+        int origSize = f.getSize();
+        scaleFactor = (double) (pixelPerInch) / 96.;
+        int newSize = (int) (scaleFactor * (double) origSize);
+        setDefaultSize(newSize);
+    }
+    public static void setDefaultSize(int size) {
+        Set<Object> keySet = UIManager.getLookAndFeelDefaults().keySet();
+        Object[] keys = keySet.toArray(new Object[keySet.size()]);
+        for (Object key : keys) {
+            if (key != null && key.toString().toLowerCase().contains("font")) {
+                Font font = UIManager.getDefaults().getFont(key);
+                if (font != null) {
+                    font = font.deriveFont((float)size);
+                    UIManager.put(key, font);
+                }
+            }
         }
     }
 }

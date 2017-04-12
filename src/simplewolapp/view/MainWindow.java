@@ -1,5 +1,6 @@
 package simplewolapp.view;
 
+import simplewolapp.controller.Controller;
 import simplewolapp.model.Host;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class MainWindow {
     public JLabel infoLabel = new JLabel(" ");
     public MainWindow(){
         frame = new JFrame("Simple Wol Application");
-        frame.setSize(470, 300);
+        frame.setSize(Controller.getScalingFactor(520), Controller.getScalingFactor(300));
         frame.setResizable(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         buildUI();
@@ -174,16 +175,5 @@ public class MainWindow {
         
         frame.add(leftPane);
         frame.add(rightPane);
-    }
-    
-    public static void setUIFont(javax.swing.plaf.FontUIResource f)
-    {
-        java.util.Enumeration keys = UIManager.getDefaults().keys();
-        while(keys.hasMoreElements())
-        {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if(value instanceof javax.swing.plaf.FontUIResource) UIManager.put(key, f);
-        }
     }
 }

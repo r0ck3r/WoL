@@ -129,13 +129,7 @@ public class Controller {
         mainWindow.save.setEnabled(act);
         if(act){
             mainWindow.name.setText(selected.name);
-            String s = "";
-            for(byte b : selected.mac){
-                String c = Integer.toString( (b < 0 ? 256 + b : b), 16);
-                s += ":" + (c.length() < 2 ? "0" + c : c).toUpperCase();
-            }
-            
-            mainWindow.mac.setText(s.substring(1));
+            mainWindow.mac.setText(selected.getHumanMac());
             mainWindow.name.setEnabled(true);
             mainWindow.mac.setEnabled(true);
         }else{

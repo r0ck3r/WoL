@@ -30,6 +30,15 @@ public class Host implements Serializable{
         }
     }
     
+    public String getHumanMac(){
+        StringBuilder macString = new StringBuilder();
+        for(byte b : mac){
+            String c = Integer.toString( (b < 0 ? 256 + b : b), 16);
+            macString.append(":" + (c.length() < 2 ? "0" + c : c).toUpperCase());
+        }
+        return macString.substring(1).toString();
+    }
+    
     public String toString(){
         return name;
     }

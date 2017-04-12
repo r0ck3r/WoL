@@ -102,6 +102,7 @@ public class MainWindow {
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weightx = 0.1;
+        constraints.anchor = GridBagConstraints.WEST;
         rightSubLayout.setConstraints(nameLabel, constraints);
         rightSubPanel.add(nameLabel);
         
@@ -118,6 +119,7 @@ public class MainWindow {
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 1;
+        constraints.anchor = GridBagConstraints.WEST;
         rightSubLayout.setConstraints(macLabel, constraints);
         rightSubPanel.add(macLabel);
         

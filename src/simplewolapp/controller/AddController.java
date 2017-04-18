@@ -20,6 +20,8 @@ public class AddController {
     }
     
     private void addListeners(){
+        ContextMenu.setToTextField(mainController.contextMenu, addWindow.nameField);
+        ContextMenu.setToTextField(mainController.contextMenu, addWindow.macField);
         addWindow.addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

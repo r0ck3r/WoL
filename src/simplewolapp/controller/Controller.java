@@ -27,6 +27,7 @@ public class Controller {
     Host selected = null;
     int selectedIndex = 0;
     ListSelectionListener listSelectionListener;
+    ContextMenu contextMenu = new ContextMenu();
     
     public Controller(){
         SwingUtilities.invokeLater(
@@ -122,6 +123,9 @@ public class Controller {
                 reloadStorageHosts();
             }
         }) );
+        
+        ContextMenu.setToTextField(contextMenu, mainWindow.name);
+        ContextMenu.setToTextField(contextMenu, mainWindow.mac);
     }
     
     private void updateHostComponents(){

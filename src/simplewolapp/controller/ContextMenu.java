@@ -1,7 +1,5 @@
 package simplewolapp.controller;
 
-import sun.awt.datatransfer.ClipboardTransferable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -12,14 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
-/**
- * Created by r0ck3r on 18.04.17.
- */
 public class ContextMenu {
     JPopupMenu popupMenu = new JPopupMenu(){
         @Override

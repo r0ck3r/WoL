@@ -10,7 +10,7 @@ javac -sourcepath src/ src/simplewolapp/Main.java -d out
 
 jar -cfe wol.jar simplewolapp/Main -C ./out/ .
 ```
-# Using
+# Starting
 ```
 java -jar <path_to_generated_wol.jar>
 ```

@@ -27,13 +27,14 @@ public class Controller {
     Host selected = null;
     int selectedIndex = 0;
     ListSelectionListener listSelectionListener;
-    ContextMenu contextMenu = new ContextMenu();
+    ContextMenu contextMenu;
     
     public Controller(){
         SwingUtilities.invokeLater(
                 () -> {
                     setUIFont(new FontUIResource("tahoma",Font.PLAIN, 13));
                     mainWindow = new MainWindow();
+                    contextMenu = new ContextMenu();
                     reloadStorageHosts();
                     addInterfaces();
                     addListeners();

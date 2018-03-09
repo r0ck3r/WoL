@@ -13,7 +13,7 @@ public class Host implements Serializable{
     }
     
     public Host(String name, String mac) throws MacException{
-        StringTokenizer tokenizer = new StringTokenizer(mac,":");
+        StringTokenizer tokenizer = new StringTokenizer(mac.trim(),":");
         byte[] macAddress = new byte[6];
         if(tokenizer.countTokens() == 6){
             try {

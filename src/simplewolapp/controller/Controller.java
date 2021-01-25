@@ -1,9 +1,6 @@
 package simplewolapp.controller;
 
-import simplewolapp.model.Host;
-import simplewolapp.model.MacException;
-import simplewolapp.model.Storage;
-import simplewolapp.model.WakeOnLan;
+import simplewolapp.model.*;
 import simplewolapp.view.MainWindow;
 
 import javax.swing.*;
@@ -104,13 +101,13 @@ public class Controller {
         
         mainWindow.save.addActionListener( (actionEvent) -> {
             try {
-                Host host = new Host(mainWindow.name.getText(), mainWindow.mac.getText());
+                Host host = new Host(mainWindow.name.getText(), mainWindow.mac.getText(), mainWindow.ip.getText());
                 storage.editHost(host, selectedIndex);
                 selected = null;
                 selectedIndex = 0;
                 updateHostComponents();
                 reloadStorageHosts();
-            } catch (MacException e) {
+            } catch (MacException | IPException e) {
                 
             }
         } );
@@ -136,13 +133,17 @@ public class Controller {
         if(act){
             mainWindow.name.setText(selected.name);
             mainWindow.mac.setText(selected.getHumanMac());
+            mainWindow.ip.setText(selected.getHumanIP());
             mainWindow.name.setEnabled(true);
             mainWindow.mac.setEnabled(true);
+            mainWindow.ip.setEnabled(true);
         }else{
             mainWindow.name.setText("");
             mainWindow.mac.setText("");
+            mainWindow.ip.setText("");
             mainWindow.name.setEnabled(false);
             mainWindow.mac.setEnabled(false);
+            mainWindow.ip.setEnabled(false);
         }
     }
     

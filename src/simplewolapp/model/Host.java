@@ -6,13 +6,28 @@ import java.util.StringTokenizer;
 public class Host implements Serializable{
     public String name;
     public byte[] mac;
+    public byte[] ip;
     
-    public Host(String name, byte[] mac){
+    public Host(String name, byte[] mac, byte[] ip){
         this.name = name;
         this.mac = mac;
+        this.ip = ip;
     }
     
-    public Host(String name, String mac) throws MacException{
+    public Host(String name, String mac, String ip) throws MacException, IPException {
+        StringTokenizer ipTokenizer = new StringTokenizer(ip.trim(), ".");
+        byte[] ipAddress = null;
+        if (ipTokenizer.countTokens() == 4) {
+            try {
+                byte[] ipAddressTmp = new byte[4];
+                for (int i = 0; i < 4; i++) {
+                    ipAddressTmp[i] = (byte) Integer.parseInt(ipTokenizer.nextToken());
+                }
+                ipAddress = ipAddressTmp;
+            } catch (NumberFormatException e) {
+                throw new IPException();
+            }
+        }
         StringTokenizer tokenizer = new StringTokenizer(mac.trim(),":");
         byte[] macAddress = new byte[6];
         if(tokenizer.countTokens() == 6){
@@ -25,6 +40,7 @@ public class Host implements Serializable{
             }
             this.name = name;
             this.mac = macAddress;
+            this.ip = ipAddress;
         }else{
             throw new MacException();
         }
@@ -41,5 +57,18 @@ public class Host implements Serializable{
     
     public String toString(){
         return name;
+    }
+
+    public String getHumanIP() {
+        String ret = "";
+        if (ip != null) {
+            StringBuilder ipString = new StringBuilder();
+            for (byte b : ip) {
+                String c = Integer.toString(b < 0 ? 256 + b : b);
+                ipString.append("." + c);
+            }
+            ret = ipString.toString().substring(1);
+        }
+        return ret;
     }
 }

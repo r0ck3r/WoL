@@ -1,6 +1,7 @@
 package simplewolapp.controller;
 
 import simplewolapp.model.Host;
+import simplewolapp.model.IPException;
 import simplewolapp.model.MacException;
 import simplewolapp.view.AddWindow;
 
@@ -26,12 +27,14 @@ public class AddController {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try{
-                    Host host = new Host(addWindow.nameField.getText(), addWindow.macField.getText());
+                    Host host = new Host(addWindow.nameField.getText(), addWindow.macField.getText(), addWindow.ipField.getText());
                     mainController.storage.addHost(host);
                     mainController.reloadStorageHosts();
                     addWindow.frame.setVisible(false);
                 } catch (MacException e) {
                     addWindow.msg.setText("Mac format error!");
+                } catch (IPException e) {
+                    addWindow.msg.setText("IP format error!");
                 }
             }
         });

@@ -60,6 +60,7 @@ public class WakeOnLan {
     private DatagramPacket genPacket(Host host, InetAddress ia){
         byte[] buf = new byte[102];
         byte[] mac = host.mac;
+        byte[] ip = host.ip.clone();
         for(int i = 0; i < 6; i++){
             buf[i] = (byte) 0xFF;
         }
@@ -69,11 +70,18 @@ public class WakeOnLan {
                 buf[iter++] = mac[j];
             }
         }
-        DatagramPacket dp = new DatagramPacket(buf, 102, ia, 10000);
+        DatagramPacket dp = null;
+        InetAddress usingAddress = ia;
+        if (ip != null) {
+            try {
+                ip[3] = (byte) 255;
+                usingAddress = InetAddress.getByAddress(ip);
+
+            } catch (UnknownHostException e) {
+                usingAddress = ia;
+            }
+        }
+        dp = new DatagramPacket(buf, 102, usingAddress, 9);
         return dp;
-    }
-    
-    public static void main(String[] args){
-        new WakeOnLan().wake(new Host("sd", new byte[2]), new NetworkInterface[2]);
     }
 }

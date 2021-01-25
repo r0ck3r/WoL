@@ -14,6 +14,7 @@ public class MainWindow {
     public JButton addButton = new JButton("Add");
     public JTextField name = new JTextField();
     public JTextField mac = new JTextField();
+    public JTextField ip = new JTextField();
     public JButton save = new JButton("Save");
     public JScrollPane listPane;
     public JButton removeButton = new JButton("Remove");
@@ -131,10 +132,26 @@ public class MainWindow {
         rightSubLayout.setConstraints(mac, constraints);
         mac.setEnabled(false);
         rightSubPanel.add(mac);
-        
+
+        JLabel ipLabel = new JLabel("IP: ");
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 2;
+        constraints.anchor = GridBagConstraints.WEST;
+        rightSubLayout.setConstraints(ipLabel, constraints);
+        rightSubPanel.add(ipLabel);
+
+        constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        rightSubLayout.setConstraints(ip, constraints);
+        ip.setEnabled(false);
+        rightSubPanel.add(ip);
+        
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 3;
         constraints.gridwidth = 2;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         rightSubLayout.setConstraints(save, constraints);

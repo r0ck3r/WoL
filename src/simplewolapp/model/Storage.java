@@ -10,7 +10,7 @@ public class Storage implements Serializable {
     public Storage(){
         if(!load()) {
             hosts = new Host[2];
-            hosts[0] = new Host("[No selection]", new byte[0]);
+            hosts[0] = new Host("[No selection]", new byte[0], new byte[0]);
         }
     }
     
